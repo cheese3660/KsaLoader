@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\KsaLoader.Core\KsaLoader.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="0Harmony">
+        <HintPath>..\Deps\0Harmony.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Box2D">
+        <HintPath>D:\Kitten Space Agency\Brutal.Box2D.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Core">
+        <HintPath>D:\Kitten Space Agency\Brutal.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Fmod">
+        <HintPath>D:\Kitten Space Agency\Brutal.Fmod.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Framework">
+        <HintPath>D:\Kitten Space Agency\Brutal.Framework.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Glfw">
+        <HintPath>D:\Kitten Space Agency\Brutal.Glfw.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Native">
+        <HintPath>D:\Kitten Space Agency\Brutal.Native.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.NativeFileDialog">
+        <HintPath>D:\Kitten Space Agency\Brutal.NativeFileDialog.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.OpenGl">
+        <HintPath>D:\Kitten Space Agency\Brutal.OpenGl.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.RakNet">
+        <HintPath>D:\Kitten Space Agency\Brutal.RakNet.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Runner">
+        <HintPath>D:\Kitten Space Agency\Brutal.Runner.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.ShaderCompiler">
+        <HintPath>D:\Kitten Space Agency\Brutal.ShaderCompiler.dll</HintPath>
+      </Reference>
+      <Reference Include="KSA">
+        <HintPath>D:\Kitten Space Agency\KSA.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

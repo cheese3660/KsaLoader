@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsaLoader", "KsaLoader\KsaLoader.csproj", "{97D32012-1F20-46D7-B556-DE22261490E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsaLoader.Core", "KsaLoader.Core\KsaLoader.Core.csproj", "{C56AE3EF-E4B7-4BC2-999F-05F7E04E4E98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleThrustMod", "ExampleThrustMod\ExampleThrustMod.csproj", "{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97D32012-1F20-46D7-B556-DE22261490E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D32012-1F20-46D7-B556-DE22261490E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D32012-1F20-46D7-B556-DE22261490E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D32012-1F20-46D7-B556-DE22261490E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56AE3EF-E4B7-4BC2-999F-05F7E04E4E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56AE3EF-E4B7-4BC2-999F-05F7E04E4E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56AE3EF-E4B7-4BC2-999F-05F7E04E4E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56AE3EF-E4B7-4BC2-999F-05F7E04E4E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
