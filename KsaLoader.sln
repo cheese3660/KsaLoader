@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsaLoader.Core", "KsaLoader
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleThrustMod", "ExampleThrustMod\ExampleThrustMod.csproj", "{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleWindowedMod", "ExampleWindowedMod\ExampleWindowedMod.csproj", "{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,11 @@ Global
 		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.BuildAndTest|Any CPU.ActiveCfg = BuildAndTest|Any CPU
 		{F7818EE0-D0EB-4570-BFA3-15A53D321EA9}.BuildAndTest|Any CPU.Build.0 = BuildAndTest|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.BuildAndTest|Any CPU.ActiveCfg = BuildAndTest|Any CPU
+		{419F7F1C-95D2-4AAC-B4F9-2324D014DBFB}.BuildAndTest|Any CPU.Build.0 = BuildAndTest|Any CPU
 	EndGlobalSection
 EndGlobal

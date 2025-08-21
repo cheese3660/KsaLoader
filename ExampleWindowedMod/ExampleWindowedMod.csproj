@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Configurations>Debug;Release;BuildAndTest</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\KsaLoader.Core\KsaLoader.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Brutal.Core">
+        <HintPath>D:\Kitten Space Agency\Brutal.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Brutal.Framework">
+        <HintPath>D:\Kitten Space Agency\Brutal.Framework.dll</HintPath>
+      </Reference>
+      <Reference Include="KSA">
+        <HintPath>D:\Kitten Space Agency\KSA.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

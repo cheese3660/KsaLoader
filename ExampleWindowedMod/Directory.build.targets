@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <ModFolder>D:/Kitten Space Agency/Content/Core/Assemblies</ModFolder>
+    </PropertyGroup>
+    <Target Label="Post build events" Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == BuildAndTest">
+        <Message Text="Copying ExampleWindowedMod.dll to folder"/>
+        <Copy SourceFiles="$(OutDir)/ExampleWindowedMod.deps.json" DestinationFolder="$(ModFolder)"/>
+        <Copy SourceFiles="$(OutDir)/ExampleWindowedMod.dll" DestinationFolder="$(ModFolder)"/>
+        <Copy SourceFiles="$(OutDir)/ExampleWindowedMod.pdb" DestinationFolder="$(ModFolder)"/>
+    </Target>
+</Project>
