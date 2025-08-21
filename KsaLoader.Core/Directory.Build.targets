@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <KSAFolder>D:/Kitten Space Agency</KSAFolder>
+    </PropertyGroup>
+    <Target Label="Post build events" Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == BuildAndTest">
+        <Message Text="Copying KsaLoader.exe to folder"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.deps.json" DestinationFolder="$(KSAFolder)"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.dll" DestinationFolder="$(KSAFolder)"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.exe" DestinationFolder="$(KSAFolder)"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.pdb" DestinationFolder="$(KSAFolder)"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.runtimeconfig.json" DestinationFolder="$(KSAFolder)"/>
+        <Message Text="Copying KSALoader.core.dll to folder"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.Core.dll" DestinationFolder="$(KSAFolder)/KsaLoaderAssemblies"/>
+        <Copy SourceFiles="$(OutDir)/KsaLoader.Core.pdb" DestinationFolder="$(KSAFolder)/KsaLoaderAssemblies"/>
+        <Message Text="Executing KSALoader.exe"/>
+    </Target>
+</Project>

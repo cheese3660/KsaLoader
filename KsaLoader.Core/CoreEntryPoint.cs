@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
 using Brutal.Framework;
 using HarmonyLib;
 using KSA;
@@ -13,10 +14,40 @@ public static class CoreEntryPoint
     public static void Execute()
     {
         _harmony.PatchAll();
+
+    }
+
+    /// <summary>
+    /// Load the mods in the preparation stage, has to be a transpiler patch as I can't postfix patch Mod.RegisterTo&lt;T&gt;
+    /// </summary>
+    [HarmonyPatch(typeof(ModLibrary), nameof(ModLibrary.PrepareAll))]
+    [HarmonyTranspiler]
+    public static IEnumerable<CodeInstruction> PrepareAllTranspiler(IEnumerable<CodeInstruction> instructions)
+    {
+        // We want to get the local index for the Mod variable so that this can remain usable if the code changes
+        var originalMethod = AccessTools.Method(typeof(ModLibrary), nameof(ModLibrary.PrepareAll));
+        var originalMethodBody = originalMethod.GetMethodBody();
+        var modLocal = originalMethodBody!.LocalVariables.First(x => x.LocalType == typeof(Mod));
+        var loadInstruction = CodeInstruction.LoadLocal(modLocal.LocalIndex);
+        foreach (var instruction in instructions)
+        {
+            yield return instruction;
+            if (instruction.opcode != OpCodes.Callvirt) continue;
+            var operand = instruction.operand as MethodInfo;
+            if (operand == null) continue;
+            if (operand.DeclaringType != typeof(Mod)) continue;
+            if (operand.Name != nameof(Mod.RegisterTo)) continue;
+            // load the assemblies for the mod
+            // ldloc <mod>
+            yield return loadInstruction;
+            // call void CoreEntryPoint::LoadAssemblies(Mod)
+            yield return CodeInstruction.Call(typeof(CoreEntryPoint),nameof(LoadAssemblies),[typeof(Mod)]);
+        }
     }
     
-    [HarmonyPatch(typeof(Mod), nameof(Mod.Load))]
-    [HarmonyPrefix]
+    
+    // [HarmonyPatch(typeof(Mod), nameof(Mod.RegisterTo))]
+    // [HarmonyPostfix]
     public static void LoadAssemblies(this Mod __instance)
     {
         var assemblyFolder = Path.Combine(__instance.DirectoryPath, "Assemblies");
@@ -30,6 +61,18 @@ public static class CoreEntryPoint
             {
                 var asm = Assembly.LoadFile(Path.GetFullPath(dll));
                 _assemblies.Add((__instance, asm));
+                foreach (var m in asm.GetTypes().SelectMany(x =>
+                             x.GetMethods().Where(y => y.GetCustomAttributes<CallImmediatelyAttribute>().Any() && y.IsStatic)))
+                {
+                    if (m.GetParameters().Length == 1)
+                    {
+                        m.Invoke(null, [__instance]);
+                    }
+                    else
+                    {
+                        m.Invoke(null, null);
+                    }
+                }
                 Log.Print($"Loaded {asm.GetName().Name}");
             }
             catch (Exception e)
@@ -60,7 +103,7 @@ public static class CoreEntryPoint
         while (types.Count > 0)
         {
             var wasChanged = false;
-            List<Type> toRemove = new();
+            List<Type> toRemove = [];
             var node = types.First;
             while (node != null)
             {
@@ -72,7 +115,14 @@ public static class CoreEntryPoint
                     var t = node.ValueRef.codeMod;
                     try
                     {
-                        Activator.CreateInstance(t, node.ValueRef.mod);
+                        foreach (var constructor in t.GetConstructors())
+                        {
+                            if (constructor.GetParameters().Length != 1 ||
+                                constructor.GetParameters()[0].ParameterType != typeof(Mod)) continue;
+                            constructor.Invoke([node.ValueRef.mod]);
+                            Log.PrintMessage($"Instantiated type {t} from mod {node.ValueRef.mod.Id}");
+                            break;
+                        }
                     }
                     catch (Exception e)
                     {
