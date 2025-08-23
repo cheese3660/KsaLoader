@@ -8,6 +8,6 @@ public class Entrypoint : CodeMod
 {
     public Entrypoint(Mod definingMod) : base(definingMod)
     {
-        var window = new Window(new float2(100, 100));
+        var window = new Window(new float2(500, 300));
     }
 }

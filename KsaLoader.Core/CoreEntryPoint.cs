@@ -24,25 +24,14 @@ public static class CoreEntryPoint
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> PrepareAllTranspiler(IEnumerable<CodeInstruction> instructions)
     {
-        // We want to get the local index for the Mod variable so that this can remain usable if the code changes
-        var originalMethod = AccessTools.Method(typeof(ModLibrary), nameof(ModLibrary.PrepareAll));
-        var originalMethodBody = originalMethod.GetMethodBody();
-        var modLocal = originalMethodBody!.LocalVariables.First(x => x.LocalType == typeof(Mod));
-        var loadInstruction = CodeInstruction.LoadLocal(modLocal.LocalIndex);
-        foreach (var instruction in instructions)
-        {
-            yield return instruction;
-            if (instruction.opcode != OpCodes.Callvirt) continue;
-            var operand = instruction.operand as MethodInfo;
-            if (operand == null) continue;
-            if (operand.DeclaringType != typeof(Mod)) continue;
-            if (operand.Name != nameof(Mod.RegisterTo)) continue;
-            // load the assemblies for the mod
-            // ldloc <mod>
-            yield return loadInstruction;
-            // call void CoreEntryPoint::LoadAssemblies(Mod)
-            yield return CodeInstruction.Call(typeof(CoreEntryPoint),nameof(LoadAssemblies),[typeof(Mod)]);
-        }
+        // Should be a fixed transpiler that won't break again
+        var instructionsList = instructions.ToList();
+        var indexOfRegisterTo = instructionsList.FindIndex(x =>
+            x.opcode == OpCodes.Callvirt && x.operand is MethodInfo { Name: "RegisterTo" });
+        var variableLoadInstruction = indexOfRegisterTo - 2;
+        instructionsList.Insert(indexOfRegisterTo + 1, instructionsList[variableLoadInstruction].Clone());
+        instructionsList.Insert(indexOfRegisterTo + 2, CodeInstruction.Call(typeof(CoreEntryPoint),nameof(LoadAssemblies),[typeof(Mod)]));
+        return instructionsList.AsEnumerable();
     }
     
     

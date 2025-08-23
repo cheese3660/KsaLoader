@@ -11,10 +11,10 @@ public class Window : ImGuiWindow, IStaticWindow
     {
         SetWindowTitle("Hello world window!");
     }
-
+    
     public override void DrawContent(Viewport viewport)
     {
-        ImGui.Text("Hello World!");
+        ImGui.Text($"Time: {Universe.GetElapsedSimTime().Days} days");
     }
 
 }
