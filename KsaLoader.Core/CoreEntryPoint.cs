@@ -16,27 +16,11 @@ public static class CoreEntryPoint
         _harmony.PatchAll();
 
     }
-
-    /// <summary>
-    /// Load the mods in the preparation stage, has to be a transpiler patch as I can't postfix patch Mod.RegisterTo&lt;T&gt;
-    /// </summary>
-    [HarmonyPatch(typeof(ModLibrary), nameof(ModLibrary.PrepareAll))]
-    [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> PrepareAllTranspiler(IEnumerable<CodeInstruction> instructions)
-    {
-        // Should be a fixed transpiler that won't break again
-        var instructionsList = instructions.ToList();
-        var indexOfRegisterTo = instructionsList.FindIndex(x =>
-            x.opcode == OpCodes.Callvirt && x.operand is MethodInfo { Name: "RegisterTo" });
-        var variableLoadInstruction = indexOfRegisterTo - 2;
-        instructionsList.Insert(indexOfRegisterTo + 1, instructionsList[variableLoadInstruction].Clone());
-        instructionsList.Insert(indexOfRegisterTo + 2, CodeInstruction.Call(typeof(CoreEntryPoint),nameof(LoadAssemblies),[typeof(Mod)]));
-        return instructionsList.AsEnumerable();
-    }
     
     
-    // [HarmonyPatch(typeof(Mod), nameof(Mod.RegisterTo))]
-    // [HarmonyPostfix]
+    
+    [HarmonyPatch(typeof(Mod), nameof(Mod.PrepareSystems))]
+    [HarmonyPrefix]
     public static void LoadAssemblies(this Mod __instance)
     {
         var assemblyFolder = Path.Combine(__instance.DirectoryPath, "Assemblies");
