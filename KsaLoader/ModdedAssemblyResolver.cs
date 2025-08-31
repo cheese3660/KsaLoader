@@ -13,11 +13,11 @@ public static class ModdedAssemblyResolver
 
     public static Assembly? ResolveAssembly(object? sender, ResolveEventArgs args)
     {
-        if (AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName == args.Name) is { } assembly)
+        var assemblyName = new AssemblyName(args.Name);
+        if (AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == assemblyName.Name) is { } assembly)
         {
             return assembly;
         }
-        var assemblyName = new AssemblyName(args.Name);
         var culture = assemblyName.CultureName;
         foreach (var path in AssemblyLoadPaths)
         {
